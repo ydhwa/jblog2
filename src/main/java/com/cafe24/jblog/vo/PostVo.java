@@ -40,7 +40,7 @@ public class PostVo {
 	}
 	@Override
 	public String toString() {
-		return "Post [no=" + no + ", title=" + title + ", content=" + content + ", regDate=" + regDate + ", categoryNo="
-				+ categoryNo + "]";
+		return "PostVo [no=" + no + ", title=" + title + ", content=" + content + ", regDate=" + regDate
+				+ ", categoryNo=" + categoryNo + "]";
 	}
 }

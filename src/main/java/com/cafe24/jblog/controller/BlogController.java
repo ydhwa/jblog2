@@ -44,8 +44,8 @@ public class BlogController {
 	public String adminCategory() {
 		return "blog/blog-admin-category";
 	}
-	@RequestMapping(value = "/admin/category/insert/{categoryNo}", method = RequestMethod.POST)
-	public String insertCategory(@PathVariable Optional<Long> categoryNo) {
+	@RequestMapping(value = "/admin/category/insert", method = RequestMethod.POST)
+	public String insertCategory() {
 		// 별도의 카테고리 추가 서비스
 		return "redirect:/admin/category";
 	}
