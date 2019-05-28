@@ -1,8 +1,5 @@
 package com.cafe24.jblog.repository;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,14 +19,7 @@ public class UserDao {
 		return 1 == sqlSession.insert("user.insert", vo);
 	}
 	
-	public UserVo getByIdAndPassword(String id, String password) {
-		Map<String, String> map = new HashMap<>();
-		map.put("id", id);
-		map.put("password", password);
-		return sqlSession.selectOne("user.getByIdAndPassword", map);
-	}
-	
-	public UserVo getById(String id) {
-		return sqlSession.selectOne("user.getById", id);
+	public UserVo get(UserVo vo) {
+		return sqlSession.selectOne("user.get", vo);
 	}
 }

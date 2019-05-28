@@ -12,20 +12,18 @@
 
 
 <!-- 유저 정보 가져오기(로그인 시) -->
-<select id="getByIdAndPassword" parameterType="map" resultType="uservo">
-	<![CDATA[
-		select id, name from users
-		where id = #{ id } and password = #{ password };
-	]]>
-</select>
-
-
 <!-- 로그인 한 유저 정보(보안 상 패스워드는 제외) (수정 시 - 수정 아직 미구현) -->
-<select id="getById" parameterType="string" resultType="uservo">
+<select id="getByIdAndPassword" parameterType="uservo" resultType="uservo">
 	<![CDATA[
 		select id, name from users
-		where id = #{ id };
+		where id = #{ id }
 	]]>
+	<if test="password != null">
+		<![CDATA[
+			and password = #{ password }
+		]]>
+	</if>
+	;
 </select>
 
 </mapper>

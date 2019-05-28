@@ -66,7 +66,7 @@ limit 0, 1;
 
 select c.no 
 from category c, users u 
-where u.id = #{ blogId } 
+where u.id = 'ysjin' 
 	and c.blog_id = u.id 
 order by c.reg_date asc limit 0, 1;
 

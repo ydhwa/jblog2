@@ -34,10 +34,10 @@
 		</mvc:message-converters>
 
 		<!-- Argument Resolver -->
-<!-- 		<mvc:argument-resolvers> -->
-<!-- 			<bean -->
-<!-- 				class="com.cafe24.security.AuthUserHandlerMethodArgumentResolver" /> -->
-<!-- 		</mvc:argument-resolvers> -->
+		<mvc:argument-resolvers>
+			<bean
+				class="com.cafe24.security.AuthUserHandlerMethodArgumentResolver" />
+		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
 
@@ -77,23 +77,23 @@
 	</bean>
 
 	<!-- Interceptors -->
-<!-- 	<mvc:interceptors> -->
-<!-- 		<mvc:interceptor> -->
-<!-- 			<mvc:mapping path="/user/auth" /> -->
-<!-- 			<bean class="com.cafe24.security.AuthLoginInterceptor" /> -->
-<!-- 		</mvc:interceptor> -->
-<!-- 		<mvc:interceptor> -->
-<!-- 			<mvc:mapping path="/user/logout" /> -->
-<!-- 			<bean class="com.cafe24.security.AuthLogoutInterceptor" /> -->
-<!-- 		</mvc:interceptor> -->
-<!-- 		<mvc:interceptor> -->
-<!-- 			<mvc:mapping path="/**" /> -->
-<!-- 			<mvc:exclude-mapping path="/user/auth" /> -->
-<!-- 			<mvc:exclude-mapping path="/user/logout" /> -->
-<!-- 			<mvc:exclude-mapping path="/assets/**" /> -->
-<!-- 			<bean class="com.cafe24.security.AuthInterceptor" /> -->
-<!-- 		</mvc:interceptor> -->
-<!-- 	</mvc:interceptors> -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/auth" />
+			<bean class="com.cafe24.security.AuthLoginInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/logout" />
+			<bean class="com.cafe24.security.AuthLogoutInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/user/auth" />
+			<mvc:exclude-mapping path="/user/logout" />
+			<mvc:exclude-mapping path="/assets/**" />
+			<bean class="com.cafe24.security.AuthInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 
 	<!-- Controller Scanning 하는 base package 지정 -->

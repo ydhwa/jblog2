@@ -2,15 +2,21 @@ package com.cafe24.jblog.controller;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cafe24.jblog.service.BlogService;
+
 @Controller
 @RequestMapping("/{id:(?!assets).*}")
 public class BlogController {
+	
+	@Autowired
+	private BlogService blogService;
 
 	@RequestMapping({"", "/{pathNo1}", "/{pathNo1}/{pathNo2}"})
 	public String index(

@@ -5,24 +5,17 @@ import org.springframework.stereotype.Service;
 
 import com.cafe24.jblog.repository.BlogDao;
 import com.cafe24.jblog.repository.CategoryDao;
-import com.cafe24.jblog.repository.UserDao;
-import com.cafe24.jblog.vo.UserVo;
+import com.cafe24.jblog.repository.PostDao;
 
 @Service
-public class UserService {
-	
-	@Autowired
-	private UserDao userDao;
+public class BlogService {
+
 	@Autowired
 	private BlogDao blogDao;
 	@Autowired
 	private CategoryDao categoryDao;
-	
-	public UserVo getUser(UserVo vo) {
-		return userDao.get(vo);
-	}
-	
-	
+	@Autowired
+	private PostDao postDao;
 	
 	
 }
