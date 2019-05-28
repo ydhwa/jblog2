@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+<!-- 카테고리 생성 -->
+<insert id="insert" parameterType="categoryvo" >
+	<choose>
+		<!-- 회원가입 시 생성됨 -->
+		<when test="name == null">
+			<![CDATA[
+				insert into category(no, reg_date, blog_id) values(null, now(), #{ blogId });
+			]]>
+		</when>
+		<otherwise>
+			<![CDATA[
+				insert into category values(null, #{ name }, #{ description }, now(), #{ blogId });
+			]]>
+		</otherwise>
+	</choose>
+</insert>
+
+
+<!-- 카테고리 삭제 -->
+<delete id="delete" parameterType="long">
+	<![CDATA[
+		delete from category where no = #{ categoryNo };
+	]]>
+</delete>
+
+
+<!-- 모든 카테고리 보기(관리용 - 서브쿼리 사용함) -->
+<select id="getListForAdmin" parameterType="string" resultType="categoryvo">
+	<![CDATA[
+		select no, name, ifnull((select count(*) from post group by category_no), 0) as posts, description
+		from category
+		where blog_id = #{ userId }
+		order by reg_date asc;
+	]]>
+</select>
+
+
+<!-- 모든 카테고리 보기(보여주기용 - 조금이라도 덜 불러오기 위함) -->
+<select id="getList" parameterType="string" resultType="categoryvo">
+	<![CDATA[
+		select no, name from category
+		where blog_id = #{ userId }
+		order by reg_date asc;
+	]]>
+</select>
+
+
+<!-- 카테고리 하나 보기(가장 처음에 만들어진 것으로 보여줌 - 어차피 post에서 처리하므로 쓸모없음) -->
+<!-- <select id="getLast" parameterType="string" resultType="categoryvo"> -->
+<!-- 	<![CDATA[ -->
+<!-- 		select no, name from category -->
+<!-- 		where blog_id = #{ userId } -->
+<!-- 		order by reg_date asc -->
+<!-- 		limit 0, 1; -->
+<!-- 	]]> -->
+<!-- </select> -->
+
+
+<!-- 카테고리 번호 불러오기(인덱스로 얻기) -->
+<select id="getDefaultNo" parameterType="map" resultType="long">
+	<![CDATA[
+		select no from category c, users u 
+		where u.id = #{ blogId } 
+			and c.blog_id = u.id 
+		order by c.reg_date asc limit #{ index }, 1;
+	]]>
+</select>
+
+
+<!-- 카테고리 불러오기(번호로 얻기) -->
+<!-- <select id="get" parameterType="long" resultType="categoryvo"> -->
+<!-- 	<![CDATA[ -->
+<!-- 		select no, name from category -->
+<!-- 		where no = #{ categoryNo }; -->
+<!-- 	]]> -->
+<!-- </select> -->
+
+</mapper>

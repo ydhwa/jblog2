@@ -4,6 +4,10 @@
 
 
 ### Notice
-- 기존의 Category table에서 "이름" 컬럼 삭제함
+Category table
+- name: 보여지는 이름
+- description: 카테고리에 대한 설명(굳이 없어도 되는 정보)
+
+
 
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+<!-- 블로그 생성 -->
+<insert id="insert" parameterType="string">
+	<![CDATA[
+		insert into blog values(#{ userid }, null, null);
+	]]>
+</insert>
+
+
+<!-- 블로그 설정 가져오기 -->
+<select id="getByBlogId" parameterType="string" resultType="blogvo">
+	<![CDATA[
+		select title, logo from blog
+		where blog_id = #{ blogid };
+	]]>
+</select>
+
+
+<!-- 블로그 설정 변경 -->
+<update id="update" parameterType="blogvo">
+	<if test="title != '' or logo != ''">
+		<![CDATA[
+			update blog set
+		]]>
+		<choose>
+			<when test="title != ''">
+				<![CDATA[
+					title = #{ title }
+				]]>
+				<if test="logo != ''">
+					<![CDATA[
+						, logo = #{ logo }
+					]]>		
+				</if>
+			</when>
+			<otherwise> <!-- title에 아무런 값도 없었다면 logo에는 무조건 값이 들어가있다. -->
+				<![CDATA[
+					logo = #{ logo }
+				]]>
+			</otherwise>
+		</choose>
+		<![CDATA[
+			where blog_id like #{ blogId };
+		]]>
+	</if>
+</update>
+
+</mapper>
