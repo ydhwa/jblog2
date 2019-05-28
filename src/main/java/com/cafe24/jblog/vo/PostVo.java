@@ -1,6 +1,6 @@
 package com.cafe24.jblog.vo;
 
-public class Post {
+public class PostVo {
 	private Long no;
 	private String title;
 	private String content;

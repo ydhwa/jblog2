@@ -62,12 +62,27 @@
 
 
 <!-- 카테고리 번호 불러오기(인덱스로 얻기) -->
-<select id="getDefaultNo" parameterType="map" resultType="long">
+<select id="getNoByIndex" parameterType="map" resultType="int">
 	<![CDATA[
 		select no from category c, users u 
 		where u.id = #{ blogId } 
 			and c.blog_id = u.id 
-		order by c.reg_date asc limit #{ index }, 1;
+		order by c.reg_date asc limit
+	]]>
+	<choose>
+		<when test="index == null">
+			<![CDATA[
+				0
+			]]>
+		</when>
+		<otherwise>
+			<![CDATA[
+				#{ index }
+			]]>
+		</otherwise> 
+	</choose>
+	<![CDATA[
+		, 1;
 	]]>
 </select>
 

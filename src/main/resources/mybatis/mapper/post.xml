@@ -36,7 +36,7 @@
 
 <!-- 전체 포스트 불러오기(특정 블로그/특정 카테고리 게시글 리스트의)
 category는 어차피 Unique하게 생성되므로 User 검사는 하지 않음 -->
-<select id="getList" parameterType="map" resultType="postvo">
+<select id="getList" parameterType="long" resultType="postvo">
 	<![CDATA[
 		select p.title, date_format(p.reg_date, '%Y/%m/%d') as regDate
 		from post p, category c

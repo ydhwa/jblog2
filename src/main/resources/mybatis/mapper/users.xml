@@ -12,7 +12,7 @@
 
 
 <!-- 유저 정보 가져오기(로그인 시) -->
-<select id="getByEmailAndPassword" parameterType="map" resultType="uservo">
+<select id="getByIdAndPassword" parameterType="map" resultType="uservo">
 	<![CDATA[
 		select id, name from users
 		where id = #{ id } and password = #{ password };
