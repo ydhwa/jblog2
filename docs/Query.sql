@@ -9,7 +9,6 @@ select * from blog;
 select * from category;
 select * from post;
 
-
 /* 유저 */
 -- 유저 추가
 insert into users values('ydhwa', '양동화', '1234', now());
@@ -42,14 +41,15 @@ where blog_id like 'ydhwa';
 /* 카테고리 */
 -- 카테고리 생성
 insert into category values(null, '미분류', '분류 없음', now(), 'ydhwa');
+insert into category values(null, 'TEST1', '테스트', now(), 'ydhwa');
 insert into category(no, reg_date, blog_id) values(null, now(), 'ysjin');
 
 -- 카테고리 삭제
 delete from category where no = 8;
 
 -- 모든 카테고리 보기(관리용 - 서브쿼리 사용함)
-select no, name, ifnull((select count(*) from post group by category_no), 0) as posts, description
-from category
+select no, name, ifnull((select count(*) from post p where p.category_no = c.no group by p.category_no), 0) as posts, description
+from category c
 where blog_id = 'ydhwa'
 order by reg_date asc;
 

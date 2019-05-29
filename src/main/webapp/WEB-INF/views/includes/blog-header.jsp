@@ -8,13 +8,16 @@
 	<h1>${ blogVo.title }</h1>
 
 	<ul>
-		<c:if test="${ not empty authUser }">
-			<li><a href="">로그인</a></li>
-			<li><a href="">로그아웃</a></li>
+		<c:if test="${ empty authUser }">		
+			<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
+		</c:if>
+			
+		<c:if test="${ not empty authUser }">		
+			<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 		</c:if>
 
 		<c:if test="${ authUser.id == blogVo.blogId }">
-			<li><a href="">블로그 관리</a></li>
+			<li><a href="${pageContext.request.contextPath}/${ authUser.id }/admin/basic">블로그 관리</a></li>
 		</c:if>
 	</ul>
 </div>

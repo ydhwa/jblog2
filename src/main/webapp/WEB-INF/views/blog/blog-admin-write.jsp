@@ -13,19 +13,21 @@
 	<div id="container">
 	
 		<c:import url='/WEB-INF/views/includes/blog-header.jsp' />
-
+		
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 			
-				<c:import url='/WEB-INF/views/includes/admin-menu.jsp' />
+				<c:import url='/WEB-INF/views/includes/admin-menu.jsp'>
+					<c:param name='menu' value='write'/>
+				</c:import>
 
-				<form action="" method="post">
+				<form action="${pageContext.request.contextPath}/${ authUser.id }/admin/write" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
 			      			<td>
 			      				<input type="text" size="60" name="title">
-				      			<select name="category">
+				      			<select name="categoryNo">
 				      			
 				      				<c:forEach items="${ categoryList }" var="categoryVo">
 				      					<option value="${ categoryVo.no }">${ categoryVo.name }</option>

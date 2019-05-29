@@ -14,7 +14,7 @@
 <!-- 블로그 설정 가져오기 -->
 <select id="getByBlogId" parameterType="string" resultType="blogvo">
 	<![CDATA[
-		select title, logo from blog
+		select blog_id, title, logo from blog
 		where blog_id = #{ blogid };
 	]]>
 </select>
@@ -22,16 +22,16 @@
 
 <!-- 블로그 설정 변경 -->
 <update id="update" parameterType="blogvo">
-	<if test="title != '' or logo != ''">
+	<if test="title != null or logo != null">
 		<![CDATA[
 			update blog set
 		]]>
 		<choose>
-			<when test="title != ''">
+			<when test="title != null">
 				<![CDATA[
 					title = #{ title }
 				]]>
-				<if test="logo != ''">
+				<if test="logo != null">
 					<![CDATA[
 						, logo = #{ logo }
 					]]>		

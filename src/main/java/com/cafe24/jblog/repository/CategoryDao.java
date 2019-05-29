@@ -1,6 +1,8 @@
 package com.cafe24.jblog.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -33,7 +35,11 @@ public class CategoryDao {
 		return sqlSession.selectList("category.getList", userId); 
 	}
 	
-	public Long getNoByIndex(Integer index) {
-		return sqlSession.selectOne("category.getNoByIndex", index);
+	public Long getNoByIndex(String id, Long categoryIndex) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("categoryIndex", categoryIndex);
+		
+		return sqlSession.selectOne("category.getNoByIndex", map);
 	}
 }

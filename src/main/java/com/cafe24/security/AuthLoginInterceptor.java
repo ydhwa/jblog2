@@ -1,8 +1,5 @@
 package com.cafe24.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,9 +33,7 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
 		
 		// session 처리
 		HttpSession session = request.getSession(true);
-		List<Integer> viewList = new ArrayList<>();	// 들렀던 페이지 목록
 		session.setAttribute("authUser", authUser);
-		session.setAttribute("viewList", viewList);
 		
 		response.sendRedirect(request.getContextPath());
 		

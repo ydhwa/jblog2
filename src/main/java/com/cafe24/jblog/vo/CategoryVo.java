@@ -9,6 +9,12 @@ public class CategoryVo {
 	
 	private Integer posts;
 	
+	public CategoryVo() {
+	}
+	public CategoryVo(String blogId) {
+		this.blogId = blogId;
+	}
+	
 	public Long getNo() {
 		return no;
 	}

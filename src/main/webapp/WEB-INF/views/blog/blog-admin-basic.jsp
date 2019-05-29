@@ -13,14 +13,15 @@
 	<div id="container">
 	
 		<c:import url='/WEB-INF/views/includes/blog-header.jsp' />
-	
 
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 			
-				<c:import url='/WEB-INF/views/includes/admin-menu.jsp' />
+				<c:import url='/WEB-INF/views/includes/admin-menu.jsp'>
+					<c:param name='menu' value='basic'/>
+				</c:import>
 
-				<form action="" method="post">
+				<form action="${pageContext.request.contextPath}/${ authUser.id }/admin/basic/update" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
@@ -28,8 +29,16 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<!-- Default Image: assets/images/spring-logo.jpg (서비스 단에서 처리시키도록 하자) -->
-			      			<td><img src="${pageContext.request.contextPath}/${ blogVo.logo }"></td>      			
+			      			<td>
+			      				<c:choose>
+			      					<c:when test="${ blogVo.logo != null }">
+			      						<img src="${pageContext.request.contextPath}/images/${ blogVo.logo }">
+			      					</c:when>
+			      					<c:otherwise>
+			      						<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+			      					</c:otherwise>
+			      				</c:choose>
+			      			</td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>

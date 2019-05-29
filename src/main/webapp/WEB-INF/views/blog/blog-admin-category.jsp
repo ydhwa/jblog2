@@ -13,12 +13,14 @@
 	<div id="container">
 	
 		<c:import url='/WEB-INF/views/includes/blog-header.jsp' />
-
+		
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 
-				<c:import url='/WEB-INF/views/includes/admin-menu.jsp' />
-
+				<c:import url='/WEB-INF/views/includes/admin-menu.jsp'>
+					<c:param name='menu' value='category'/>
+				</c:import>
+				
 		      	<table class="admin-cat">
 		      		<tr>
 		      			<th>번호</th>
@@ -30,17 +32,17 @@
 		      		
 		      		<c:forEach items="${ categoryList }" var="categoryVo" varStatus="status">
 		      			<tr>
-							<td>${ status.index }</td>
+							<td>${ status.index + 1 }</td>
 							<td>${ categoryVo.name }</td>
 							<td>${ categoryVo.posts }</td>
 							<td>${ categoryVo.description }</td>
-							<td><a href="${pageContext.request.contextPath}/${ blogVo.blogId }/admin/category/delete/${ categoryVo.no }"></a><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a></td>
+							<td><a href="${pageContext.request.contextPath}/${ authUser.id }/admin/category/delete/${ categoryVo.no }"><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a></td>
 						</tr>
 					</c:forEach>  
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
-      			<form action="${pageContext.request.contextPath}/${ blogVo.blogId }/admin/category/insert" method="post">
+      			<form action="${pageContext.request.contextPath}/${ authUser.id }/admin/category/insert" method="post">
 		      		<table id="admin-cat-add">
 		      			<tr>
 		      				<td class="t">카테고리명</td>
@@ -48,8 +50,10 @@
 		      			</tr>
 		      			<tr>
 		      				<td class="t">설명</td>
-		      				<td><input type="text" name="desc"></td>
+		      				<td><input type="text" name="description"></td>
 		      			</tr>
+		      			
+		      			<input type="hidden" name="blogId" value="${ authUser.id }">
 		      			<tr>
 		      				<td class="s">&nbsp;</td>
 		      				<td><input type="submit" value="카테고리 추가"></td>

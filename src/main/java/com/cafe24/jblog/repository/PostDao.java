@@ -27,14 +27,14 @@ public class PostDao {
 		return 1 == sqlSession.update("post.update", vo);
 	}
 	
-	public List<PostVo> getList(Long categoryNo) {
-		return sqlSession.selectList("post.getList", categoryNo);
+	public List<PostVo> getList(Long categoryIndex) {
+		return sqlSession.selectList("post.getList", categoryIndex);
 	}
 	
-	public PostVo getByIndex(Long categoryNo, Integer index) {
+	public PostVo getByIndex(Long categoryNo, Long postIndex) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("categoryNo", categoryNo);
-		map.put("index", index);
+		map.put("postIndex", postIndex);
 		return sqlSession.selectOne("post.getByIndex", map);
 	} 
 }

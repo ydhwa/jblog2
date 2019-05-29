@@ -13,6 +13,9 @@
 	<div id="container">
 
 		<c:import url='/WEB-INF/views/includes/blog-header.jsp' />
+		
+		<!-- path variable -->
+		<input type="hidden" name="categoryIndex" value="${ categoryIndex }">
 
 		<div id="wrapper">
 			<div id="content">
@@ -25,7 +28,7 @@
 				<ul class="blog-list">
 				
 					<c:forEach items="${ postList }" var="postItem" varStatus="status">
-						<li><a href="${ pageContext.request.contextPath }/${ blogVo.blogId }/${ postItem.categoryIndex }/${ status.index }">${ postItem.regDate }</a> <span>${ postItem.regDate }</span></li>
+						<li><a href="${ pageContext.request.contextPath }/${ blogVo.blogId }/${ categoryIndex }/${ status.index + 1 }">${ postItem.title }</a> <span>${ postItem.regDate }</span></li>
 					</c:forEach>
 					
 				</ul>
@@ -51,7 +54,7 @@
 			<ul>
 			
 				<c:forEach items="${ categoryList }" var="categoryVo" varStatus="status">
-					<li><a href="${ pageContext.request.contextPath }/${ blogVo.blogId }/${ status.index }">${ categoryVo.name }</a></li>
+					<li><a href="${ pageContext.request.contextPath }/${ blogVo.blogId }/${ status.index + 1 }">${ categoryVo.name }</a></li>
 				</c:forEach>
 				
 			</ul>
