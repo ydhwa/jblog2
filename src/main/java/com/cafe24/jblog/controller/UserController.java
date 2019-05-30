@@ -55,10 +55,12 @@ public class UserController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm(
+							@RequestParam(value = "result", defaultValue = "") String result,
 							@RequestParam(value = "action", defaultValue = "") String action,
 							@RequestParam(value = "category", defaultValue = "") String category,
 							@RequestParam(value = "post", defaultValue = "") String post,
 							Model model) {
+		model.addAttribute("result", result);
 		model.addAttribute("action", action);
 		model.addAttribute("category", category);
 		model.addAttribute("post", post);

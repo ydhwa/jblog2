@@ -58,7 +58,6 @@ public class BlogService {
 		BlogVo blogVo = new BlogVo();
 		blogVo.setBlogId(blogId);
 		blogVo.setTitle(blogTitle);
-		System.out.println(multipartFile);
 		if(!multipartFile.isEmpty()) {
 			String prevBlogLogo = blogDao.getByBlogId(blogId).getLogo(); 
 			if(prevBlogLogo != null) {
