@@ -43,7 +43,8 @@
 <!-- 모든 카테고리 보기(보여주기용 - 조금이라도 덜 불러오기 위함) -->
 <select id="getList" parameterType="string" resultType="categoryvo">
 	<![CDATA[
-		select no, name from category
+		select no, name, ifnull((select count(*) from post p where p.category_no = c.no group by p.category_no), 0) as posts 
+		from category c
 		where blog_id = #{ userId }
 		order by reg_date asc;
 	]]>

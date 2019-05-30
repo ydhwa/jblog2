@@ -8,12 +8,32 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- Image upload 시 Preview -->
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#logoImage').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+	$(document).ready(function() {
+    	$('#logoFile').change(function() {
+    		readURL(this);
+    	});
+	});
+</script>
+
 </head>
 <body>
 	<div id="container">
 	
 		<c:import url='/WEB-INF/views/includes/blog-header.jsp' />
-
+		
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 			
@@ -21,7 +41,7 @@
 					<c:param name='menu' value='basic'/>
 				</c:import>
 
-				<form action="${pageContext.request.contextPath}/${ authUser.id }/admin/basic/update" method="post" enctype="multipart/form-data">
+				<form action="${pageContext.request.contextPath}/${ blogVo.blogId }/admin/basic/update" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
@@ -29,20 +49,13 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td>
-			      				<c:choose>
-			      					<c:when test="${ blogVo.logo != null }">
-			      						<img src="${pageContext.request.contextPath}/images/${ blogVo.logo }">
-			      					</c:when>
-			      					<c:otherwise>
-			      						<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
-			      					</c:otherwise>
-			      				</c:choose>
+			      			<td>  				
+								<img id="logoImage" src="${ pageContext.request.contextPath }${ blogVo.logo }" onerror="this.src='${pageContext.request.contextPath}/assets/images/spring-logo.jpg';">
 			      			</td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
-			      			<td><input type="file" name="logo-file"></td>      			
+			      			<td><input id="logoFile" type="file" name="logo-file"></td>      			
 			      		</tr>           		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>

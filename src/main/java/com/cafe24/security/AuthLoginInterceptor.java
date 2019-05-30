@@ -35,7 +35,24 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
 		
-		response.sendRedirect(request.getContextPath());
+		// 로그인에 성공하면 원래 있었던 곳으로 보낸다.
+		// 메인 페이지: action == null / 블로그는 action이 블로그 아이디
+		String path = request.getContextPath();
+		String action = request.getParameter("action");
+		if(action != null && !("".equals(action))) {
+			String category = request.getParameter("category");
+			String post = request.getParameter("post");
+			
+			if(category == null) {
+				path += action + "/1/1";
+			} else if(post == null) {
+				path += "/" + action + "/" + category + "/1";
+			} else {
+				path += "/" + action + "/" + category + "/" + post;
+			}
+		}
+		
+		response.sendRedirect(path);
 		
 		return false;
 	}

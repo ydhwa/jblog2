@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post">
+
+<!-- 포스트 생성 -->
+<insert id="insert" parameterType="postvo">
+	<![CDATA[
+		insert into post values(null, #{ title }, #{ content }, now(), #{ categoryNo });
+	]]>
+</insert>
+
+
+<!-- 포스트 수정 -->
+<update id="update" parameterType="postvo">
+	<![CDATA[
+		update post
+		set 
+	]]>
+	<if test="title != ''">
+		<![CDATA[
+			title = #{ title },
+		]]>
+	</if>
+	<if test="content != ''">
+		<![CDATA[
+			content = #{ content }, 
+		]]>
+	</if> 
+	<![CDATA[
+			category_no = #{ categoryNo }
+		where no = #{ no };
+	]]>
+</update>
+
+
+<!-- 전체 포스트 불러오기(특정 블로그/특정 카테고리 게시글 리스트의)
+category는 어차피 Unique하게 생성되므로 User 검사는 하지 않음 -->
+<select id="getList" parameterType="long" resultType="postvo">
+	<![CDATA[
+		select p.title, date_format(p.reg_date, '%Y/%m/%d %H:%i:%s') as regDate
+		from post p, category c
+		where c.no = ${ value }
+			and p.category_no = c.no
+		order by p.reg_date desc;
+	]]>
+</select>
+
+
+<!-- 특정 게시글 불러오기(인덱스(0부터 시작)로 얻기) -->
+<select id="getByIndex" parameterType="map" resultType="postvo">
+	<![CDATA[
+		select p.no, p.title, p.content, category_no, date_format(p.reg_date, '%Y/%m/%d %H:%i:%s') as regDate
+		from post p, category c
+		where c.no = ${ categoryNo } and p.category_no = c.no
+		order by p.reg_date desc
+		limit ${ postIndex - 1 }, 1;
+	]]>
+</select>
+
+
+<!-- 특정 게시글 불러오기(번호로 얻기) -->
+<!-- <select id="getByNo" parameterType="long" resultType="postvo"> -->
+<!-- 	<![CDATA[ -->
+<!-- 		select no, title, content, category_no, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate -->
+<!-- 		from post -->
+<!-- 		where no = #{ postNo }; -->
+<!-- 	]]> -->
+<!-- </select> -->
+
+</mapper>

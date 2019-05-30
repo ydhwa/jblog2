@@ -37,15 +37,7 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				
-				<c:choose>
-					<c:when test="${ blogVo.logo == null }">
-						<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
-					</c:when>
-					<c:otherwise>
-						<img src="${pageContext.request.contextPath}/images/${ blogVo.logo }">
-					</c:otherwise>
-				</c:choose>
+				<img src="${pageContext.request.contextPath}${ blogVo.logo }" onerror="this.src='${pageContext.request.contextPath}/assets/images/spring-logo.jpg';">
 			</div>
 		</div>
 
@@ -54,7 +46,7 @@
 			<ul>
 			
 				<c:forEach items="${ categoryList }" var="categoryVo" varStatus="status">
-					<li><a href="${ pageContext.request.contextPath }/${ blogVo.blogId }/${ status.index + 1 }">${ categoryVo.name }</a></li>
+					<li><a href="${ pageContext.request.contextPath }/${ blogVo.blogId }/${ status.index + 1 }">${ categoryVo.name } (${ categoryVo.posts })</a></li>
 				</c:forEach>
 				
 			</ul>

@@ -16,6 +16,11 @@
 	<c:import url='/WEB-INF/views/includes/main-menu.jsp' />
 
 		<form class="login-form" action="${pageContext.request.contextPath}/user/auth" method="post">
+		
+			<input type="hidden" name="action" value="${ action }">
+			<input type="hidden" name="category" value="${ category }">
+			<input type="hidden" name="post" value="${ post }">
+		
       		<label>아이디</label> <input type="text" name="id">
       		<label>패스워드</label> <input type="password" name="password">
       		<input type="submit" value="로그인">

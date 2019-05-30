@@ -23,6 +23,10 @@ public class BlogDao {
 		return sqlSession.selectOne("blog.getByBlogId", blogId);
 	}
 	
+	public BlogVo getByBlogIdForAdmin(String blogId) {
+		return sqlSession.selectOne("blog.getByBlogIdForAdmin", blogId);
+	}
+	
 	public Boolean update(BlogVo vo) {
 		return 1 == sqlSession.update("blog.update", vo);
 	}

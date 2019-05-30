@@ -19,6 +19,14 @@
 	]]>
 </select>
 
+<!-- 관리자 페이지(카테고리, 글작성)에서 블로그 설정 가져오기(로고 필요 없음) -->
+<select id="getByBlogIdForAdmin" parameterType="string" resultType="blogvo">
+	<![CDATA[
+		select blog_id, title from blog
+		where blog_id = #{ blogid };
+	]]>
+</select>
+
 
 <!-- 블로그 설정 변경 -->
 <update id="update" parameterType="blogvo">

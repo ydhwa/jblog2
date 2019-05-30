@@ -62,9 +62,9 @@
 		<property name="maxUploadSize" value="52428800" />
 		<property name="defaultEncoding" value="utf-8" />
 	</bean>
+	
 	<!-- the mvc resources url mapping -->
-	<mvc:resources mapping="/images/**" location="file:/jblog-uploads/" />
-
+	<mvc:resources mapping="assets/images/logo/**" location="file:/jblog-uploads/logo/" />
 
 	<!-- 6. MessageSource 다국어 할 때도 사용함 -->
 	<bean id="messageSource"
@@ -87,10 +87,15 @@
 			<bean class="com.cafe24.security.AuthLogoutInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
+			<mvc:mapping path="/**/**/admin/**" />
+			<bean class="com.cafe24.security.AuthBlogInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/user/auth" />
 			<mvc:exclude-mapping path="/user/logout" />
 			<mvc:exclude-mapping path="/assets/**" />
+			<mvc:exclude-mapping path="/**/admin/**"/>
 			<bean class="com.cafe24.security.AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

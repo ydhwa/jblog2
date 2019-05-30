@@ -9,15 +9,23 @@
 
 	<ul>
 		<c:if test="${ empty authUser }">		
-			<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
+			<li><a href="${pageContext.request.contextPath}/user/login?action=${ blogVo.blogId }&category=${ categoryIndex }&post=${ postIndex }">로그인</a></li>
 		</c:if>
 			
-		<c:if test="${ not empty authUser }">		
-			<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
+		<c:if test="${ not empty authUser }">
+			<li><a href="${pageContext.request.contextPath}/user/logout?action=${ blogVo.blogId }&category=${ categoryIndex }&post=${ postIndex }">로그아웃</a></li>
 		</c:if>
+		
 
-		<c:if test="${ authUser.id == blogVo.blogId }">
+		<c:set var="currURI" value="${ pageContext.request.requestURI }"/>
+		
+		<c:if test="${ authUser.id == blogVo.blogId and !fn:contains(currURI, 'admin') }">
 			<li><a href="${pageContext.request.contextPath}/${ authUser.id }/admin/basic">블로그 관리</a></li>
 		</c:if>
+		
+		<c:if test="${ authUser.id == blogVo.blogId and fn:contains(currURI, 'admin') }">
+			<li><a href="${pageContext.request.contextPath}/${ blogVo.blogId }">블로그 메인</a></li>
+		</c:if>
 	</ul>
+
 </div>

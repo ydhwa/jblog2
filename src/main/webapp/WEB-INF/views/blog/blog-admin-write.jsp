@@ -13,7 +13,7 @@
 	<div id="container">
 	
 		<c:import url='/WEB-INF/views/includes/blog-header.jsp' />
-		
+
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 			
@@ -21,7 +21,7 @@
 					<c:param name='menu' value='write'/>
 				</c:import>
 
-				<form action="${pageContext.request.contextPath}/${ authUser.id }/admin/write" method="post">
+				<form action="${pageContext.request.contextPath}/${ blogVo.blogId }/admin/write" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
@@ -30,7 +30,7 @@
 				      			<select name="categoryNo">
 				      			
 				      				<c:forEach items="${ categoryList }" var="categoryVo">
-				      					<option value="${ categoryVo.no }">${ categoryVo.name }</option>
+				      					<option value="${ categoryVo.no }">${ categoryVo.name } (${ categoryVo.posts })</option>
 				      				</c:forEach>
 				      				
 				      			</select>

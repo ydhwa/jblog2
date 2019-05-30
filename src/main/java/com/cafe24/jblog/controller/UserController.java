@@ -12,6 +12,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.jblog.service.UserService;
 import com.cafe24.jblog.vo.UserVo;
@@ -53,7 +54,15 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginForm() {
+	public String loginForm(
+							@RequestParam(value = "action", defaultValue = "") String action,
+							@RequestParam(value = "category", defaultValue = "") String category,
+							@RequestParam(value = "post", defaultValue = "") String post,
+							Model model) {
+		model.addAttribute("action", action);
+		model.addAttribute("category", category);
+		model.addAttribute("post", post);
+		
 		return "user/login";
 	}
 }

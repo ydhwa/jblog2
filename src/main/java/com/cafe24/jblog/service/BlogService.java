@@ -1,11 +1,11 @@
 package com.cafe24.jblog.service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,8 +22,8 @@ import com.cafe24.jblog.vo.PostVo;
 
 @Service
 public class BlogService {
-	private static final String SAVE_LOGO_PATH = "/jblog-uploads/logo";
-	private static final String URL = "/images";
+	private static final String SAVE_LOGO_PATH = "/jblog-uploads/logo/";
+	private static final String LOGO_URL = "/assets/images/logo/";
 
 	@Autowired
 	private BlogDao blogDao;
@@ -42,6 +42,7 @@ public class BlogService {
 		Long categoryNo = categoryDao.getNoByIndex(id, categoryIndex);
 
 		map.put("categoryIndex", categoryIndex);
+		map.put("postIndex", postIndex);
 		map.put("blogVo", blogDao.getByBlogId(id));
 		map.put("categoryList", categoryDao.getList(id));
 		map.put("postList", postDao.getList(categoryNo));
@@ -53,19 +54,42 @@ public class BlogService {
 	// ===================================== 관리자 서비스
 
 	// 블로그 설정 관리부
-	public void updateBlogConfig(String blogId, String blogTitle, String blogLogoUrl) {
+	public void updateBlogConfig(String blogId, String blogTitle, MultipartFile multipartFile) {
 		BlogVo blogVo = new BlogVo();
 		blogVo.setBlogId(blogId);
 		blogVo.setTitle(blogTitle);
-		blogVo.setLogo(blogLogoUrl);
+		System.out.println(multipartFile);
+		if(!multipartFile.isEmpty()) {
+			String prevBlogLogo = blogDao.getByBlogId(blogId).getLogo(); 
+			if(prevBlogLogo != null) {
+				String prevBlogLogoName = prevBlogLogo.substring(prevBlogLogo.lastIndexOf('/') + 1);
+				fileDelete(prevBlogLogoName);
+			}
+			
+			blogVo.setLogo(fileUpload(multipartFile));
+		}
 		blogDao.update(blogVo);
 	}
+	
+	// 기존 로고 파일이 존재하면 삭제
+	private void fileDelete(String fileName) {
+		File file = new File(SAVE_LOGO_PATH + fileName);
+		if(file.exists()) {
+			file.delete();
+		}
+	}
+
 	// 이미지 파일 업로드
-	public String fileUpload(MultipartFile multipartFile) {
-		String url = "";
+	private String fileUpload(MultipartFile multipartFile) {
+		String url = null;
 		try {
 			if(multipartFile.isEmpty()) {
 				return url;
+			}
+			
+			// 디렉터리 없으면 만든다.
+			if(!(new File(SAVE_LOGO_PATH).exists())) {
+				new File(SAVE_LOGO_PATH).mkdirs();
 			}
 		
 			String originalFileName = multipartFile.getOriginalFilename();
@@ -73,11 +97,11 @@ public class BlogService {
 			String saveFileName = generateSaveFileName(extName);
 		
 			byte[] fileData = multipartFile.getBytes();
-			OutputStream os = new FileOutputStream(SAVE_LOGO_PATH + "/" + saveFileName);
+			OutputStream os = new FileOutputStream(SAVE_LOGO_PATH + saveFileName);
 			os.write(fileData);
 			os.close();
 			
-			url = URL + "/" + saveFileName;
+			url = LOGO_URL + saveFileName;
 		
 		} catch (IOException e) {
 			throw new RuntimeException("Fileupload ERROR: " + e);
@@ -102,8 +126,11 @@ public class BlogService {
 	
 
 	// 카테고리 관리부
-	public List<CategoryVo> showCategoryPage(String id) {
-		return categoryDao.getListForAdmin(id);
+	public Map<String, Object> showCategoryPage(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("categoryList", categoryDao.getListForAdmin(id));
+		map.put("blogVo", blogDao.getByBlogIdForAdmin(id));
+		return map;
 	}
 
 	public Boolean insertCategory(CategoryVo categoryVo) {
@@ -115,8 +142,11 @@ public class BlogService {
 	}
 
 	// 게시글 작성부
-	public List<CategoryVo> showPostWritePage(String id) {
-		return categoryDao.getListForAdmin(id);
+	public Map<String, Object> showPostWritePage(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("categoryList", categoryDao.getListForAdmin(id));
+		map.put("blogVo", blogDao.getByBlogIdForAdmin(id));
+		return map;
 	}
 	public Boolean writePost(PostVo postVo) {
 		return postDao.insert(postVo);
