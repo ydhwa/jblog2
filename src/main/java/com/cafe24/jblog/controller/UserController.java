@@ -25,7 +25,8 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public String joinForm() {
+	public String joinForm(
+			@ModelAttribute UserVo userVo) {
 		return "user/join";
 	}
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
@@ -36,11 +37,11 @@ public class UserController {
 		
 		// Validation check
 		if(result.hasErrors()) {
-			List<ObjectError> list = result.getAllErrors();
-			for(ObjectError error: list) {
-				System.out.println(error);
+			List<ObjectError> errorList = result.getAllErrors();
+			for(ObjectError error: errorList) {
+				System.out.println(error);				
 			}
-			model.addAllAttributes(result.getModel());
+			model.addAllAttributes(errorList);
 			return "user/join";
 		}
 		

@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserVo {
-	@Length(min = 2, max = 20)
+	@Length(min = 4, max = 20)
 	@NotEmpty
 	private String id;
 	
@@ -12,6 +12,7 @@ public class UserVo {
 	@NotEmpty
 	private String name;
 	
+	@NotEmpty
 	private String password;
 	private String regDate;
 	

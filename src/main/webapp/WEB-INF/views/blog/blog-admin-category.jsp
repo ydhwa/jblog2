@@ -8,6 +8,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<script src="${ pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script>
+function deleteCategory(no, posts) {
+	if(posts > 0) {
+		alert('삭제할 수 없습니다!\n카테고리를 전부 비워주세요.');
+	} else {
+		window.location.href = '${pageContext.request.contextPath}/${ authUser.id }/admin/category/delete/' + no;
+	}
+}
+</script>
 </head>
 <body>
 	<div id="container">
@@ -36,7 +46,13 @@
 							<td>${ categoryVo.name }</td>
 							<td>${ categoryVo.posts }</td>
 							<td>${ categoryVo.description }</td>
-							<td><a href="${pageContext.request.contextPath}/${ authUser.id }/admin/category/delete/${ categoryVo.no }"><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a></td>
+							
+							<!-- 미분류 카테고리는 삭제하지 못하도록 만들었다. -->
+							<td>
+								<c:if test="${ status.index > 0 }">
+									<img style="cursor: pointer;" onclick="deleteCategory(${ categoryVo.no }, ${ categoryVo.posts })" src="${pageContext.request.contextPath}/assets/images/delete.jpg">
+								</c:if>
+							</td>
 						</tr>
 					</c:forEach>  
 				</table>

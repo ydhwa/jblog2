@@ -9,7 +9,7 @@
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <!-- Image upload 시 Preview -->
 <script type="text/javascript">
     function readURL(input) {
