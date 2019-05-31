@@ -13,7 +13,13 @@
 	<div class="center-content">
 		
 		<c:import url='/WEB-INF/views/includes/main-menu.jsp' />
-
+		
+		<br>
+		<br>
+		
+		<c:if test="${ userName != null }">
+			<p>${ userName }님, 환영합니다!</p>
+		</c:if>
 		<form class="search-form">
 			<fieldset>
 				<input type="text" name="keyword" />
