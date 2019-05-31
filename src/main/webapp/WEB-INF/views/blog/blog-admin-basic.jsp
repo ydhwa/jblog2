@@ -25,6 +25,11 @@
     	$('#logoFile').change(function() {
     		readURL(this);
     	});
+    	
+    	// 블로그 업데이트 시 성공 alert
+    	$('#admin-basic').on('submit', function() {
+    		alert('블로그 설정 수정이 완료되었습니다.');
+    	});
 	});
 </script>
 
@@ -41,7 +46,7 @@
 					<c:param name='menu' value='basic'/>
 				</c:import>
 
-				<form action="${pageContext.request.contextPath}/${ blogVo.blogId }/admin/basic/update" method="post" enctype="multipart/form-data">
+				<form action="${pageContext.request.contextPath}/${ blogVo.blogId }/admin/basic/update" method="post" enctype="multipart/form-data" id="admin-basic">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>

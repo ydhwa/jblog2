@@ -36,6 +36,7 @@ update blog
 set title = '동화의 블로그', logo = 'logo.jpg'
 where blog_id like 'ydhwa';
 
+alter table post change content contents longtext;
 
 
 /* 카테고리 */

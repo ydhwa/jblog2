@@ -14,9 +14,18 @@ function deleteCategory(no, posts) {
 	if(posts > 0) {
 		alert('삭제할 수 없습니다!\n카테고리를 전부 비워주세요.');
 	} else {
-		window.location.href = '${pageContext.request.contextPath}/${ authUser.id }/admin/category/delete/' + no;
+		$.when(window.location.href = '${pageContext.request.contextPath}/${ authUser.id }/admin/category/delete/' + no).done(function() {
+			alert('카테고리가 삭제되었습니다.');	
+		});
 	}
 }
+
+$(document).ready(function() {
+	// 카테고리 등록 시 성공 alert
+	$('#category').on('submit', function() {
+		alert('카테고리 등록이 완료되었습니다.');
+    });
+});
 </script>
 </head>
 <body>
@@ -58,7 +67,7 @@ function deleteCategory(no, posts) {
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
-      			<form action="${pageContext.request.contextPath}/${ blogVo.blogId }/admin/category/insert" method="post">
+      			<form action="${pageContext.request.contextPath}/${ blogVo.blogId }/admin/category/insert" method="post" id="category">
 		      		<table id="admin-cat-add">
 		      			<tr>
 		      				<td class="t">카테고리명</td>

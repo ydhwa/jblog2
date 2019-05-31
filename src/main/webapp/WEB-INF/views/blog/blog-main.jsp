@@ -20,15 +20,18 @@
 		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
-					<h4>${ postVo.title }</h4>
+					<h2>${ postVo.title }</h2>
+					
+					<hr style="border: 1px dotted #FFFFFF; width: 40%; margin-top: 10px; margin-bottom: 20px;"/>
+					<div id="blog-reg-date" style="text-align: right; font-size: small; color: #ababab">${ postVo.regDate }</div>
 					<p>
-						${ postVo.content }
+						${ postVo.contents }
 					<p>
 				</div>
 				<ul class="blog-list">
 				
 					<c:forEach items="${ postList }" var="postItem" varStatus="status">
-						<li><a href="${ pageContext.request.contextPath }/${ blogVo.blogId }/${ categoryIndex }/${ status.index + 1 }">${ postItem.title }</a> <span>${ postItem.regDate }</span></li>
+						<a href="${ pageContext.request.contextPath }/${ blogVo.blogId }/${ categoryIndex }/${ status.index + 1 }"><li style="display: block;">${ postItem.title }<span>${ postItem.regDate }</span></li></a>
 					</c:forEach>
 					
 				</ul>
@@ -46,7 +49,7 @@
 			<ul>
 			
 				<c:forEach items="${ categoryList }" var="categoryVo" varStatus="status">
-					<li><a href="${ pageContext.request.contextPath }/${ blogVo.blogId }/${ status.index + 1 }">${ categoryVo.name } (${ categoryVo.posts })</a></li>
+					<a href="${ pageContext.request.contextPath }/${ blogVo.blogId }/${ status.index + 1 }"><li>${ categoryVo.name } (${ categoryVo.posts })</li></a>
 				</c:forEach>
 				
 			</ul>

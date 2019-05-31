@@ -3,7 +3,7 @@ package com.cafe24.jblog.vo;
 public class PostVo {
 	private Long no;
 	private String title;
-	private String content;
+	private String contents;
 	private String regDate;
 
 	private Long categoryNo;
@@ -20,11 +20,11 @@ public class PostVo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContent() {
-		return content;
+	public String getContents() {
+		return contents;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -40,7 +40,7 @@ public class PostVo {
 	}
 	@Override
 	public String toString() {
-		return "PostVo [no=" + no + ", title=" + title + ", content=" + content + ", regDate=" + regDate
+		return "PostVo [no=" + no + ", title=" + title + ", contents=" + contents + ", regDate=" + regDate
 				+ ", categoryNo=" + categoryNo + "]";
 	}
 }
